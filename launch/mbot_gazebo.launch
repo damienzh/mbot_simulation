@@ -1,0 +1,12 @@
+<launch>
+
+  <!--load world-->
+  <include file="$(find mbot_simulation)/launch/gazebo_world.launch"/>
+  <!--spawn model-->
+  <include file="$(find mbot_simulation)/launch/spawn_model.launch"/>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+</launch>
