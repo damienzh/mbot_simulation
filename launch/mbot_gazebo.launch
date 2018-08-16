@@ -1,7 +1,9 @@
 <launch>
 
   <!--load world-->
-  <include file="$(find mbot_simulation)/launch/gazebo_world.launch"/>
+  <include file="$(find mbot_simulation)/launch/gazebo_world.launch">
+    <arg name="world_flag" value="test"/>
+  </include>
   <!--spawn model-->
   <include file="$(find mbot_simulation)/launch/spawn_model.launch"/>
 

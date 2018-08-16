@@ -1,5 +1,11 @@
 <launch>
+    <arg name="world_flag" default="test"/>
+
+    <arg name="world" value="$(find mbot_simulation)/urdf/willow.world" if="$(eval world_flag == 'willow')"/>
+    <arg name="world" value="$(find mbot_simulation)/urdf/test_hallway.world" if="$(eval world_flag == 'test')"/>
+
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find mbot_simulation)/urdf/test_world.world"/>
+        <arg name="world_name" value="$(arg world)"/>
     </include>
+
 </launch>

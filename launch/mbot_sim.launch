@@ -1,22 +1,16 @@
 <launch>
-    <arg name="model" default="$(find mbot_simulation)/urdf/mbot.xacro"/>
-    <arg name="rvizconfig" default="$(find mbot_simulation)/rviz/mbot_sim.rviz"/>
 
     <include file="$(find mbot_simulation)/launch/mbot_gazebo.launch"/>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)"/>
+    <include file="$(find mbot_simulation)/launch/mbot_sim_control.launch"/>
 
-    <rosparam command="load" file="$(find mbot_simulation)/urdf/config/joints.yaml"
-              ns="mbot_joint_state_controller"/>
-    <rosparam command="load" file="$(find mbot_simulation)/urdf/config/diffdrive.yaml"
-              ns="mbot_diff_drive_controller"/>
-
-    <node name="mbot_controller_spawner" pkg="controller_manager" type="spawner"
-          args="mbot_joint_state_controller
-                mbot_diff_drive_controller"/>
-
-    <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
-        <param name="default_topic" value="/mbot_diff_drive_controller/cmd_vel"/>
-    </node>
+    <group ns="xtion">
+        <node name="depth_to_laser" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan">
+            <remap from="image" to="/camera/depth/image_raw"/>
+            <remap from="camera_info" to="/camera/depth/camera_info"/>
+            <param name="scan_height" value="20"/>
+            <param name="output_frame_id" value="/xtion_link"/>
+        </node>
+    </group>
 
 </launch>

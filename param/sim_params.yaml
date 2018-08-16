@@ -1,0 +1,30 @@
+# published by Gazebo
+camera:
+  ImageTopic: /camera/rgb/image_raw
+  DepthTopic: /camera/depth/image_raw
+  PointCloudTopic: /camera/depth/points
+  Laser: /xtion/scan
+
+# tf published by Gazebo
+mbot_frame:
+  imu_frame: /imu_link
+  camera_frame: /xtion_link
+  imu_frame: /imu_link
+  base_frame: /base_link
+
+mbot_topic:
+  laser: /mbot/laser/scan
+  odom: /mbot_diff_drive_controller/odom
+  imu: /imu
+
+control:
+  cmd: /mbot_diff_drive_controller/cmd_vel
+
+# velocity limits
+linear:
+  x:
+    max_velocity: 0.3  # m/s
+
+angular:
+  z:
+    max_velocity: 0.5 # rad/s
